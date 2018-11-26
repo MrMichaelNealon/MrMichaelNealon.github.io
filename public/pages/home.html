@@ -46,11 +46,11 @@
                 Blog.getLatestArticles(3, function(latest) {
                 //    $("#latest-inner").html("");
 
-                    console.log(`loaded ${latest.length} articlay`);
+                //    console.log(`loaded ${latest.length} articlay`);
                     latest.map(function(article) {       
                         var img_url = url.path + ARTICLE_PREFIX + article.thumb;
 
-                        console.log(`adding articlay ${article.name}`);
+                    //    console.log(`adding articlay ${article.name}`);
                         $("#latest-info").append('\
                         <h3 \
                                 id="latest-' + article.name + '"\

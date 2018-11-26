@@ -49,8 +49,6 @@ const   Blog = (function() {
             _article = (_articles[_year].length - 1);
         } else
             _year = _article = 0;
-   //    console.log(`_year = ${_year}, _article = ${_article}`);
-
     };
 
     let _handleBlogRequest = function(url) {

@@ -1,0 +1,86 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/menu.scss
+//
+
+
+    $menu-bg: rgba(0, 0, 0, 0);
+
+
+    #menu {
+        position: fixed;
+        z-index: 50;
+        display: none;
+        top: 0px; right: 0px;
+        width: auto; bottom: $footer-height;
+        color: $secondary-fg;
+        background: $menu-bg;
+        box-sizing: border-box;
+    }
+
+        .menu-social {
+            z-index: 51;
+            position: relative;
+            float: right;
+            width: auto; height: 24px;
+            box-sizing: border-box;
+            padding: (($header-height - 24) / 2);
+            padding-left: (($header-height - 36) / 2);
+        }
+
+            .menu-social-link {
+                cursor: pointer;
+                z-index: 52;
+                position: relative;
+                float: left;
+                width: 32px; height: 32px;
+                box-sizing: border-box;
+                margin-left: 12px;
+                opacity: 0.01;
+                background: #FFF;
+            }
+
+
+        .menu-links {
+            position: relative;
+            z-index: 53;
+            float: right;
+            clear: both;
+            margin-top: (($header-height - 12) / 2);
+            padding: (($header-height - 36) / 2);
+            width: auto; height: auto;
+            box-sizing: border-box;
+        }
+
+            .menu-header {
+                position: relative;
+                z-index: 54;
+                float: right;
+                clear: both;
+                width: auto; height: au24pxto;
+                margin-bottom: (($header-height - 36) / 2);
+                box-sizing: border-box;
+                font-size: 18px;
+                font-weight: bold;
+                font-family: $menu-header-font;
+                line-height: 18px;
+                display: none;
+                opacity: 0.01;
+            }
+
+            .menu-link {
+                cursor: pointer;
+                z-index: 55;
+                position: relative;
+                float: right;
+                clear: both;
+                width: auto; height: auto;
+                box-sizing: border-box;
+                margin-bottom: (($header-height - 48) / 2);
+                font-size: 16px;
+                font-family: $menu-link-font;
+                font-weight: bold;
+                line-height: 14px;
+                display: none;
+                opacity: 0.01;
+            }
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div id="home" class="blog">
+            <div id="home-inner" class="article" style="min-height: 110%;">
+                &nbsp;
+            </div>
+            <div id="latest-info" class="article-info">
+                <h2 id="latest-article-title">Latest Articles</h2>
+
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            var articlays;
+            var url = Routes.parseUrl();
+
+            if (! Blog.loaded()) {
+                Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
+                    Blog.handleBlogRequest(url);
+
+                    Blog.loadArticles(0, function(articlay) {
+                        articlays = articlay;
+                        showLatest();
+                    });
+                });
+            } else {
+                Blog.loadArticles(0, function(articlay) {
+                    articlays = articlay;
+                    showLatest();
+                });
+            }
+
+            function showLatest() {
+                Blog.resetArticles();
+                console.log("Articlays == " + articlays.length);
+                Blog.getLatestArticles(3, function(latest) {
+                //    $("#latest-inner").html("");
+
+                    console.log(`loaded ${latest.length} articlay`);
+                    latest.map(function(article) {       
+                        var img_url = url.path + ARTICLE_PREFIX + article.thumb;
+
+                        console.log(`adding articlay ${article.name}`);
+                        $("#latest-info").append('\
+                        <h3 \
+                                id="latest-' + article.name + '"\
+                                class="latest" \
+                                title="' + Routes.parseUrl().path + ARTICLE_PREFIX +  article.published.substr(6) + "/" + article.name + '.html"\
+                                real_url="' + Routes.parseUrl().address + "?blog/" + article.published.substr(6) + "/" + article.name + '.html"\
+                                style="text-shadow: 1px 1px 0px #000; cursor: pointer; opacity: 0.75" \
+                            >\
+                                ' + article.title + '\
+                            </h3>\
+                            <img \
+                                id="latest-thumb-' + article.name + '"\
+                                class="latest" \
+                                src="' + img_url + '" \
+                                title="' + Routes.parseUrl().path + ARTICLE_PREFIX +  article.published.substr(6) + "/" + article.name + '.html"\
+                                real_url="' + Routes.parseUrl().address + "?blog/" + article.published.substr(6) + "/" + article.name + '.html"\
+                                width="100%" height="auto" \
+                                style="box-shadow: 2px 2px 0px #000; cursor: pointer; margin-bottom: 24px; opacity: 0.75;" \
+                            >\
+                        ');
+                    });
+                });
+
+                $(".latest").on("mouseover", function() {
+                    $(this).animate({ "opacity": "0.99" }, 500, "linear");
+                });
+                $(".latest").on("mouseout", function() {
+                    $(this).stop().animate({ "opacity": "0.75" }, 500, "linear");
+                });
+                $(".latest").on("click", function() {
+                    var href= $(this).attr("title");
+                    $("#blog").load(href);
+                    var real_url = $(this).attr("real_url");
+                    window.history.pushState(null, null, real_url);
+                });
+
+                $("#home").niceScroll({
+                    "cursorcolor": "#1E90FF",
+                    "cursorborder": "#0A60AF",
+                    "cursorwidth": "12px",
+                    "cursorborder": "2px #0A60CF solid",
+                    "smoothscroll": "true",
+                    "touchbehaviour": "true",
+                    "bouncescroll": "true",
+                    "background": "rgba(255, 255, 255, 0.25)",
+                    "zindex": 22
+                }).resize();
+
+            }
+        });
+    </script>
+</html>

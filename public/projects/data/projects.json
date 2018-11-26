@@ -1,0 +1,77 @@
+[
+    {
+        "name": "NunchyCrut",
+        "description": "A bizarre blog",
+        "href": "https://rawgit.com/MrMichaelNealon/NunchyCrut/master/index.html?Home",
+        "repo": "https://github.com/MrMichaelNealon/NunchyCrut",
+        "thumb": "/public/projects/images/NunchyCrut.png",
+        "languages": [
+            "html5", "css3", "javascript", "jquery"
+        ]
+    },
+
+    {
+        "name": "MrMichaelNealon",
+        "description": "My old website",
+        "href": "https://MrMichaelNealon.github.io",
+        "repo": "https://github.com/MrMichaelNealon/MrMichaelNealon.github.io",
+        "thumb": "/public/projects/images/MrMichaelNealon.png",
+        "languages": [
+            "html5", "css3", "javascript", "jquery"
+        ]
+    },
+
+    {
+        "name": "Github-API",
+        "description": "Displays Github repos",
+        "href": "https://rawgit.com/MrMichaelNealon/Noktu/master/Demo/GitAPI.html",
+        "repo": "https://github.com/MrMichaelNealon/GitAPIDemo",
+        "thumb": "/public/projects/images/GitAPI.png",
+        "languages": [
+            "javascript"
+        ]
+    },
+
+    {
+        "name": "The-Simulation",
+        "description": "Project for <b>Upwork</b> client",
+        "href": "https://rawgit.com/MrMichaelNealon/Noktu/master/Demo/index.html",
+        "repo": "https://github.com/MrMichaelNealon/TextEffect",
+        "thumb": "/public/projects/images/WelcomeToTheSimulation.png",
+        "languages": [
+            "html5", "css3", "javascript"
+        ]
+    },
+
+    {
+        "name": "Bricktop",
+        "description": "A front-end framework",
+        "repo": "https://github.com/MrMichaelNealon/Bricktop",
+        "thumb": "/public/projects/images/Bricktop.png",
+        "languages": [
+            "javascript"
+        ]
+    },
+
+    {
+        "name": "Noktu",
+        "description": "An audio player",
+        "href": "https://rawgit.com/MrMichaelNealon/Noktu/master/Demo/Noktu.html",
+        "repo": "https://github.com/MrMichaelNealon/Noktu",
+        "thumb": "/public/projects/images/Noktu.png",
+        "languages": [
+            "html5", "css3", "javascript", "jquery"
+        ]
+    },
+
+    {
+        "name": "Qubes",
+        "description": "A tile-based, puzzle game",
+        "href": "https://rawgit.com/MrMichaelNealon/Qubes/master/index.html",
+        "repo": "https://github.com/MrMichaelNealon/Qubes",
+        "thumb": "/public/projects/images/Qubes.png",
+        "languages": [
+            "html5", "css3", "javascript"
+        ]
+    }
+]

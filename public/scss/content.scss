@@ -1,0 +1,23 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/content.scss
+//
+
+    #content {
+        @extend %base-el;
+
+        z-index: 20;
+        
+        color: $tertiary-fg;
+        background: $tertiary-bg;
+        
+        top: $content-top;
+        left: $content-left;
+        width: $content-width;
+        bottom: $content-bottom;
+
+        padding: (($header-height - 24) / 2) (($header-height - 36) / 2);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+

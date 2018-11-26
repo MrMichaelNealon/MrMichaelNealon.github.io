@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+		<meta content="True" name="HandheldFriendly">	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="viewport" content="width=device-width">
+        
+		<link href="https://fonts.googleapis.com/css?family=Geo|Lekton|Sarpanch" rel="stylesheet"> 
+        <link rel="Stylesheet" type="text/css" href="./public/css/main.css">
+        
+        <title>
+            Michael Nealon - Web design and development
+        </title>
+    
+		<script src="./public/plugins/jquery-1.11.0.js"></script>	
+        <script src="./public/plugins/jquery-colour.js"></script>
+        <script src="./public/plugins/jquery-nicescroll.js"></script>
+
+        <script src="./public/app/config/tooltip.js"></script>
+        <script src="./public/app/config/social-media.js"></script>
+        <script src="./public/app/config/routes.js"></script>
+        <script src="./public/app/config/menu.js"></script>
+        <script src="./public/app/config/projects.js"></script>
+        <script src="./public/app/config/blog.js"></script>
+    </head>
+    <body>
+        <div id="outer">
+            <div id="inner">
+
+                <div id="header">
+                    <div id="header-title" title="Take me home!" style="cursor: pointer;">
+                        <div id="header-spin">
+                                <img
+                                    id="header-front" 
+                                    src="./public/images/logos/TitleLogo.png" 
+                                    width="100%" height="100%"
+                                />
+                                <img
+                                    id="header-back" 
+                                    src="./public/images/logos/TitleLogo.png" 
+                                    width="100%" height="100%"
+                                />
+                        </div>
+                    </div>
+                    <div id="header-menu">
+                        <div class="header-menu-layer">&nbsp;</div>
+                        <div class="header-menu-layer">&nbsp;</div>
+                        <div class="header-menu-layer">&nbsp;</div>
+                    </div>
+                </div>
+                <div id="header-fade">&nbsp;</div>
+
+                <div id="content">
+                    Content
+                </div>
+
+                <div id="footer-fade">&nbsp;</div>
+                <div id="footer">
+                    Footer
+                </div>
+
+            </div>
+
+            <div id="menu">
+                <div id="menu-social" class="menu-social">
+                </div>
+                <div id="menu-links" class="menu-links">
+                    <div id="menu-header" class="menu-header">
+                        NAVIGATION
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                SocialMedia.socialLinks();
+                Routes.navLinks();
+
+                Menu.init();
+
+                Routes.getPage();
+
+                $("#header-spin").on("click", function() {
+                    window.location.href = Routes.parseUrl().address;
+                });
+            });
+        </script>
+    </body>
+</html>

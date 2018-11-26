@@ -1,0 +1,69 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/main.scss
+//
+
+
+    *,
+    body
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body { overflow: hidden; }
+
+
+    /*#tooltip-el {
+        position: fixed;
+        width: auto; height: auto;
+        background: rgba(20, 20, 34, 0.75);
+        color: #FFF;
+        font-size: 16px;
+        display: none;
+        opacity: 0.01;
+        box-sizing: border-box;
+        border: 2px solid #1E90FF;
+        z-index: 120;
+    }*/
+
+    .languages {
+        position: relative;
+        width: 100%; height: auto;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        margin-top: 12px;
+        margin-bottom: 32px;
+        display: flex;
+    }
+
+    #home {
+        z-index: 21;
+        display: block;
+        position: relative;
+        float: left;
+        width: 100%; height: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+
+
+///////////////////////////////////////////////////////////
+//  Imports
+//
+    @import "layout.scss";
+    @import "fonts.scss";
+    @import "colour.scss";
+    @import "header.scss";
+    @import "menu.scss";
+    @import "content.scss";
+    @import "footer.scss";
+    @import "projects.scss";
+    @import "blog.scss";
+    @import "article.scss";
+    @import "media.scss";
+

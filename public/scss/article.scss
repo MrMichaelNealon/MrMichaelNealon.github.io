@@ -1,0 +1,92 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/article.scss
+//
+
+    .article {
+        position: relative;
+        float: right;
+        width: 100%; height: auto;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+        min-height: 100%;
+        background: rgba(20, 20, 34, 0.25);
+    }
+
+    .article-info {
+        display: block;
+        position: relative;
+        float: left;
+        width: 100%; height: auto;
+        box-sizing: border-box;
+        border-top: 2px solid $tertiary-bg;
+    //    background: rgba(20, 20, 34, 0.25);
+        background: rgba(20, 20, 34, 0.25);
+    }
+
+    #article h1 {
+        position: relative;
+        font-family: $project-name-font;
+        font-size: 36px;
+        color: #1E90FF;
+        text-shadow: 2px 2px 0px #000;
+        margin-bottom: 24px;
+    }
+
+    h2 {
+        font-family: $project-name-font;
+        font-size: 22px;
+        color: #1E90FF;
+        margin-bottom: 24px;
+    }
+
+    h3 {
+        font-family: $project-name-font;
+        font-size: 18px;
+        color: #FFF;
+    }
+
+    #article p {
+        position: relative;
+        font-family: $menu-header-font;
+        font-size: 14px;
+        color: #DCDCDC;
+        padding: 0px 12px;
+    }
+
+    .articles-similar {
+        position: relative;
+        float: left;
+        width: 100%; height: auto;
+        box-sizing: border-box;
+        padding: 12px;
+    }
+
+    .article-bloglink {
+        position: relative;
+        float: left;
+        width: auto;
+        height: 24px;
+        color: #2EC0FF;
+        font-family: $project-languages-font;
+        font-size: 14px;
+        margin: 12px 0px 0px 0px;
+        cursor: pointer;
+    }
+
+        .article-bloglink:hover {
+            color: #2EC0FF;
+            text-decoration: underline;
+        }
+
+    .article-date {
+        position: relative;
+        float: right;
+        width: auto;
+        height: 24px;
+        color: #FFF;
+        font-family: $project-languages-font;
+        font-size: 14px;
+        padding-right: 12px;
+        margin: 12px;
+    }
+

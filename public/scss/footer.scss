@@ -1,0 +1,30 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/footer.scss
+//
+
+    #footer {
+        @extend %base-el;
+
+        z-index: 30;
+        
+        color: $secondary-fg;
+        background: $primary-bg;
+        
+        left: $footer-left;
+        width: $footer-width;
+        height: $footer-height;
+        bottom: $footer-bottom;
+
+        line-height: ($footer-height - 2);
+    }
+       
+    #footer-fade {
+        position: absolute;
+        z-index: 29;
+        bottom: $footer-height;
+        left: 0%; width: 100%;
+        height: $footer-fade-height;
+        background: none;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    }
+    

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div id="projects">
+        </div>        
+
+        <script>
+            $(document).ready(function() {
+                $("#projects").niceScroll({
+                    "cursorcolor": "#1E90FF",
+                    "cursorborder": "#0A60AF",
+                    "cursorwidth": "12px",
+                    "cursorborder": "2px #0A60CF solid",
+                    "smoothscroll": "true",
+                    "touchbehaviour": "false",
+                    "grabcursorenabled": "false",
+                    "bouncescroll": "true",
+                    "background": "rgba(255, 255, 255, 0.25)",
+                    "zindex": 22
+                }).resize();
+
+            Projects.showProjects(300, 0, 0, function() {
+            //    initTooltips();
+                return;
+            });
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div id="blog">
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                var url = Routes.parseUrl();
+
+            //    if (Routes.parseUrl().search.substr(0, 5) == "?blog") {
+                
+                var articlays = [];
+                var hasArticlay = true;
+
+                var scrollLock = false;
+
+                var from =0;
+                var to = 3;
+
+                if (! Blog.loaded()) {
+                    Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
+                        Blog.handleBlogRequest(url);
+
+                        Blog.loadArticles(0, function(articlay) {
+                            articlays = articlay;
+                            fetchArticlay();
+                        });
+                    });
+                } else {
+                    Blog.resetArticles();
+                    Blog.loadArticles(0, function(articlay) {
+                        articlays = articlay;
+                        fetchArticlay();
+                    });
+                }
+
+                $("#blog").niceScroll({
+                    "cursorcolor": "#1E90FF",
+                    "cursorborder": "#0A60AF",
+                    "cursorwidth": "12px",
+                    "cursorborder": "2px #0A60CF solid",
+                    "smoothscroll": "true",
+                    "touchbehaviour": "true",
+                    "bouncescroll": "true",
+                    "background": "rgba(255, 255, 255, 0.25)",
+                    "zindex": 22
+                }).resize();
+
+                function fetchArticlay() {
+                    if (url.search != "?blog")
+                        return;
+                    if (! hasArticlay) {
+                        scrollLock = false;
+                        return;
+                    }
+
+                    Blog.showPreviews(from, to, articlays, 250, function(bool) {
+                        if (! bool)
+                            hasArticlay = false;
+                        else {
+                            from += 3;
+                            to += 3;
+                        }
+
+                        if (from <= 3) {
+                            $(".blog-preview, .blog-language").on("mouseenter", function() {
+                                console.log("A-thu-thu-thu?");
+                                if (scrollLock) return;
+                                console.log("A-thu?");
+                                $(this).stop().animate({ "opacity": "0.99" }, 500, "linear");
+                            });
+                            $(".blog-preview, .blog-language").on("mouseleave", function() {
+                                if (scrollLock) return;
+                                $(this).stop().animate({ "opacity": "0.75" }, 500, "linear");
+                            });
+                            $(".blog-title").on("click", function() {
+                                var href= $(this).attr("title");
+                                console.log("Showing article " + href);
+                            //    Routes.getPage(href);
+                            //    window.location.href = href;
+                                $("#blog").load(href);
+                                var real_url = $(this).attr("real_url");
+                                window.history.pushState(null, null, real_url);
+                            });
+                        }
+                        scrollLock = false;
+                    });
+                }
+
+                $("#blog").niceScroll().scrollend(function(info) {
+                    var el = document.getElementById("blog");
+                    if (! scrollLock) {
+                        if (el.scrollHeight - el.scrollTop === el.clientHeight) {
+                            scrollLock = true;
+                            fetchArticlay();
+                        }
+                    }
+                }).resize();
+            //        console.log("This is an articlay!");
+            //    }
+            });
+        </script>
+    </body>
+</html>

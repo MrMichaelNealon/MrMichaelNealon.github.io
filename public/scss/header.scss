@@ -1,0 +1,90 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/header.scss
+//
+
+    #header {
+        @extend %base-el;
+
+        z-index: 10;
+        
+        color: $secondary-fg;
+        background: $primary-bg;
+
+        padding-left: (($header-height - 36) / 2);
+        padding-right: (($header-height - 24) / 2);
+        
+        top: $header-top;
+        left: $header-left;
+        width: $header-width;
+        height: $header-height;
+
+        line-height: ($header-height - 2);
+    }
+
+        #header-title {
+            position: absolute;;
+            float: left;
+            width: 130px; height: 70px;
+            font-size: 38px;
+            font-weight: bold;
+            perspective: 500px;
+        }
+
+            #header-spin {
+                position: absolute;
+                width: 130px; height: 70px;
+                margin-top: 6px;
+                transform-style: preserve-3d;
+                animation: spinLogo 15.0s infinite;
+            }
+
+            @-webkit-keyframes spinLogo {
+                0% { 
+                    animation-timing-function: linear;
+                    transform: rotateY(0deg);
+                }
+                100% {
+                    animation-timing-function: linear;
+                    transform: rotateY(360deg)
+                }
+            }
+
+            #header-front,
+            #header-back
+            {
+                position: absolute;
+                width: 130px; height: 70px;
+                backface-visibility: hidden;
+            }
+
+            #header-back {
+                transform: rotateY(180deg);
+            }
+
+
+        #header-menu {
+            position: relative;
+            float: right;
+            cursor: pointer;
+            margin-top: (($header-height - 24) / 2);
+            width: 24px; height: 24px;
+            box-sizing: border-box;
+        }
+
+            .header-menu-layer {
+                position: relative;
+                float: left;
+                width: 100%; height: 23.33%;
+                margin: 0% 0% 15% 0%;
+                background: $tertiary-fg;
+            }
+        
+    #header-fade {
+        position: absolute;
+        z-index: 28;
+        top: $header-height;
+        left: 0%; width: 100%;
+        height: $header-fade-height;
+        background: none;
+        background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    }

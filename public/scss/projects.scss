@@ -1,0 +1,146 @@
+///////////////////////////////////////////////////////////
+//  press/public/scss/projects.scss
+//
+
+#projects {
+    z-index: 21;
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%; height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+    .project-el {
+        position: relative;
+        float: left;
+        display: block;
+        margin: 2.5% 5% 2.5% 2.5%;
+        width: 90%; height: 240px;
+        box-sizing: border-box;
+        color: #FFF;
+        background: rgba(20, 20, 34, 0.75);
+        border-radius: 12px;
+        padding: 12px;
+        overflow: hidden;
+        opacity: 0.01;
+    }
+
+    %project-ext {
+        position: absolute;
+        box-sizing: border-box;
+    }
+
+    .project-thumb {
+        @extend %project-ext;
+        z-index: 35;
+        top: 0%; left: 0%;
+        width: 100%; height: 100%;
+    }
+
+    .project-info {
+        @extend %project-ext;
+        z-index: 34;
+        top: 0%; left: 0%;
+        width: 100%; height: 100%;
+        background: none;
+        display: none;
+    }
+
+    .project-name {
+        @extend %project-ext;
+        top: 12px; left: 12px;
+        right: 12px; height: 48px;
+        text-align: center;
+        font-size: 24px;
+        font-family: $project-name-font;
+        line-height: 46px;
+        color: #1E90FF;
+        text-shadow: 1px 1px 0px #000;
+        border-radius: 6px;
+        background: #FFF;
+    }
+
+    .project-description {
+        @extend %project-ext;
+        top: 82px; left: 0%;
+        width: 100%; height: auto;
+        text-align: center;
+        font-size: 16px;
+        font-family: $project-description-font;
+        font-weight: bold;
+        line-height: 14px;
+        color: #FFF;
+        text-shadow: 1px 1px 0px #000;
+    }
+
+    .project-languages {
+        @extend %project-ext;
+        top: 114px; left: 12px;
+        right: 12px; height: 64px;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+    }
+
+        .project-language {
+            cursor: pointer;
+            position: relative;
+            float: left;
+            padding: 2px 8px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            background: none;
+            color: #FFF;
+            text-align: center;
+            line-height: 22px;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: $project-languages-font;
+            margin: 0px 6px 2px 6px;
+            border: 1px solid #1E90FF;
+            opacity: 0.75;
+        }
+
+    %project-link {
+        position: absolute;
+        bottom: 12px;
+        height: 32px; width: 32px;
+        cursor: pointer;
+        opacity: 0.75;
+    }
+
+    .project-git {
+        @extend %project-link;
+        left: 24px;
+    }
+
+    .project-demo {
+        @extend %project-link;
+        right: 24px;
+        animation: spinDemoLogo 15.0s infinite;
+    }
+
+    .project-language:hover,
+    .project-git:hover, 
+    .project-demo:hover
+    {
+        animation: highlightGit 0.5s forwards;
+    }
+
+    @-webkit-keyframes spinDemoLogo {
+        0% { 
+            animation-timing-function: linear;
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes highlightGit {
+        0% { opacity: 0.75; }
+        100% { opacity: 0.99; }
+    }
+

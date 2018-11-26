@@ -400,7 +400,7 @@ const   Blog = (function() {
             
             var article = (_articles[year].length - 1);
 
-            console.log(`YEAR == ${year} and ARTICLE == ${article}`)
+        //    console.log(`YEAR == ${year} and ARTICLE == ${article}`)
             while (article >= 0) {
                 if (typeof(limit) === "number" && limit > 0) {
                     if (total >= limit)  break;

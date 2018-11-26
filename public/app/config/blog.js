@@ -12,8 +12,8 @@ const   Blog = (function() {
 
     let _articles = [];
 
-    let _year;
-    let _article;
+    let _year = 0;
+    let _article = 0;
 
     let _direction = ARTICLE_SPILL_DESCENDING;
 
@@ -49,7 +49,7 @@ const   Blog = (function() {
             _article = (_articles[_year].length - 1);
         } else
             _year = _article = 0;
-            console.log(`_year = ${_year}, _article = ${_article}`)
+        console.log(`_year = ${_year}, _article = ${_article}`);
 
     };
 

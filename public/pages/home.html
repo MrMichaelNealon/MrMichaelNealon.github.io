@@ -82,9 +82,10 @@
                 });
                 $(".latest").on("click", function() {
                     var href= $(this).attr("title");
-                    $("#blog").load(href);
-                    var real_url = $(this).attr("real_url");
-                    window.history.pushState(null, null, real_url);
+                //    $("#blog").load(href);
+                //    var real_url = $(this).attr("real_url");
+                //    window.history.pushState(null, null, real_url);
+                    window.location.href = href;
                 });
 
                 $("#home").niceScroll({

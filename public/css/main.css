@@ -325,7 +325,8 @@ body {
   top: 114px;
   left: 12px;
   right: 12px;
-  height: 64px;
+  height: auto;
+  max-height: 64px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -340,7 +341,6 @@ body {
   box-sizing: border-box;
   border-radius: 6px;
   background: none;
-  max-height: 24px;
   color: #FFF;
   text-align: center;
   line-height: 22px;

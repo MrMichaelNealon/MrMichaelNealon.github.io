@@ -115,7 +115,7 @@ const   Blog = (function() {
                 total++;
             }
 
-            console.log(`_year = ${_year}, _article = ${_article}`)
+        //    console.log(`_year = ${_year}, _article = ${_article}`)
             articles.push(_articles[_year][_article]);
 
             if (_direction == ARTICLE_SPILL_DESCENDING) {
@@ -406,7 +406,7 @@ const   Blog = (function() {
                     if (total >= limit)  break;
                     total++;
                 }
-                console.log(`total: ${total} limit: ${limit}`)
+            //    console.log(`total: ${total} limit: ${limit}`)
                 articles.push(_articles[year][article--]);
             }
             year--;

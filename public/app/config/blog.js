@@ -426,6 +426,9 @@ const   Blog = (function() {
             if (_articles.length > 0) return true;
             return false;
         },
+        "reset":                    function() {
+            _articles = [];
+        },
         "resetArticles":            _resetArticles,
         "handleBlogRequest":        _handleBlogRequest,
         "loadArticle":              _loadArticle,

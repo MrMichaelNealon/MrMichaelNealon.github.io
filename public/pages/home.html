@@ -23,7 +23,8 @@
             var articlays;
             var url = Routes.parseUrl();
 
-            if (! Blog.loaded()) {
+        //    if (! Blog.loaded()) {
+        //    Blog.reset(); Blog.resetArticles();
                 Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
                     Blog.handleBlogRequest(url);
 
@@ -32,12 +33,12 @@
                         showLatest();
                     });
                 });
-            } else {
-                Blog.loadArticles(0, function(articlay) {
-                    articlays = articlay;
-                    showLatest();
-                });
-            }
+        //    } else {
+        //        Blog.loadArticles(0, function(articlay) {
+        //            articlays = articlay;
+        //            showLatest();
+        //        });
+        //    }
 
             function showLatest() {
                 Blog.resetArticles();

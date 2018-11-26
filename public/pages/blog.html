@@ -24,6 +24,8 @@
 
                 var from =0;
                 var to = 3;
+        
+                Blog.reset();
 
                 if (! Blog.loaded()) {
                     Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {

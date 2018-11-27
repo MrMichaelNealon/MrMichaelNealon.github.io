@@ -471,6 +471,14 @@
                         $('code').each(function(i, block) {
                             $(this).css("margin", "0px");
                         });
+                        
+                        $('pre').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                            $(this).css("background", "rgba(0, 0, 0, 0)");
+                        });
+                        $('code').each(function(i, block) {
+                            $(this).css("background", "rgba(0, 0, 0, 0)");
+                        });
                     });
                     
                 });

@@ -467,18 +467,13 @@
                         //hljs.configure({useBR: true});                  
                         $('pre').each(function(i, block) {
                             hljs.highlightBlock(block);
+                            $(this).css("background-color", "rgba(20, 20, 34, 0.25");
                         });
                         $('code').each(function(i, block) {
-                            $(this).css("margin", "0px");
+                            $(this).css("margin", "0px");                            $(this).css("background-color", "rgba(20, 20, 34, 0.25");
+                            $(this).css("background-color", "rgba(20, 20, 34, 0");
                         });
                         
-                        $('pre').each(function(i, block) {
-                            hljs.highlightBlock(block);
-                            $(this).css("background-color", "rgba(0, 0, 0, 0.25)");
-                        });
-                        $('code').each(function(i, block) {
-                            $(this).css("background-color", "rgba(0, 0, 0, 0)");
-                        });
                     });
                     
                 });

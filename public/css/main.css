@@ -843,3 +843,7 @@ code, pre {
   a, p, pre, code {
     font-size: 16px;
     line-height: 16px; } }
+
+pre {
+  margin: 24px 0px;
+  background: rgba(20, 20, 34, 0.5); }

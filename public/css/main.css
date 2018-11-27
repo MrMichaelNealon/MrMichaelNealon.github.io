@@ -80,8 +80,9 @@ body {
   position: absolute;
   float: left;
   width: 130px;
-  height: 70px;
-  font-size: 38px;
+  height: auto;
+  font-size: 28px;
+  line-height: 28px;
   font-weight: bold;
   perspective: 500px; }
 

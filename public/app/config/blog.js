@@ -58,6 +58,7 @@ const   Blog = (function() {
                     var index = _articles[year][article]['languages'].indexOf(params[param]);
                     if (index > -1) {
                         articles.push(_articles[year][article]);
+                        break;
                     }
                 }
             }

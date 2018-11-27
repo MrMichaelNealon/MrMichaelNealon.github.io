@@ -6,7 +6,7 @@
 @media (min-width: $screen-medium) {
     .project-el { margin: 2.5%; width: 45%; }
     .blog-preview { margin: 2% 7.5%; width: 85%; }
-    .blog-title { font-size: 28px; }
+    .blog-title { font-size: 28px; padding-bottom: 6px; }
     .blog-subtitle { font-size: 22px; line-height: 20px; width: 61%; }
     .blog-thumb { width: 38%; height: auto; border-radius: 0px 0px 0px 6px; }
     .blog-description { display: block; font-size: 12px; line-height: 12px; }
@@ -15,13 +15,14 @@
     .article {  border-left: 2px solid #1E90FF; width: 60%; padding: 0px 0px 0px 12px; margin: 0; border-left: 5px solid $tertiary-bg; }
     .article-info { background: none; width: 40%; border-top: none; padding-top: 6px; }
     #article p { font-size: 16px; }
+    h1 { margin-bottom: 6px; }
 }
 
 
 @media (min-width: $screen-regular) {
     .project-el { margin: 2.5%; width: 28.33%; }
     .blog-preview { margin: 1% 12.5%; width: 75%; }
-    .blog-title { font-size: 38px; }
+    .blog-title { font-size: 38px; padding-bottom: 12px; }
     .blog-subtitle { font-size: 24px; line-height: 22px; }
     .blog-thumb { height: auto; border-radius: 0px 0px 0px 6px; }
     .blog-description { font-size: 16px; line-height: 16px; }
@@ -30,12 +31,13 @@
     .article { width: 70%; padding-right: 24px; }
     .article-info { width: 30%; }
     #article p { font-size: 18px; }
+    h1 { margin-bottom: 12px; }
 }
 
 
 @media (min-width: $screen-large) {
     .blog-preview { margin: 2% 12.5%; width: 75%; }
-    .blog-title { font-size: 44px; }
+    .blog-title { font-size: 44px; padding-bottom: 18px; }
     .blog-subtitle { font-size: 32px; line-height: 30px; }
     .blog-description { margin-top: 12px; font-size: 20px; line-height: 22px; margin-top: 12px; }
     .blog-languages { margin-top: 24px; }    
@@ -43,5 +45,6 @@
     .article { width: 75%; }
     .article-info { width: 25%; }
     #article p { font-size: 20px; }
+    h1 { }
 }
 

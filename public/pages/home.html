@@ -8,13 +8,139 @@
         <meta name="viewport" content="width=device-width" />
     </head>
     <body>
-        <div id="home" class="blog">
-            <div id="home-inner" class="article" style="min-height: 110%;">
-                &nbsp;
-            </div>
-            <div id="latest-info" class="article-info">
-                <h2 id="latest-article-title">Latest Articles</h2>
+        <div id="home" class="blog" style="overflow-x: hidden;">
+            <div id="home-inner" class="article" style="overflow: hidden; min-height: 110%;">
+                <h1 style="margin-bottom: 0px;">WhoAmI API v-1.0.0</h1>
+                <pre id="whoamiapi" style="max-height: 100%; overflow: hidden" ><code class="JavaScript">
 
+const WhoAmI = (function() {
+    let Personal = {
+        "Profile": {
+            "ForeName":            "Michael",
+            "SurName":             "Nealon",
+            "Gender":              "Male",
+            "DateOfBirth":         "30/08/1980"
+        },
+        "Location": {
+            "Country":             "Scotland",
+            "City":                "Glasgow"
+        },
+        "Interests": {
+            "FrontendDevelopment": [
+                "HTML5", "CSS3", "SASS", "JavaScript", "jQuery"
+            ],
+            "BackendDevelopment":  [
+                "PHP", "MySQL", "Node.js", "Express", "MongoDB"
+            ],
+            "Programming":         [
+                "C", "C++", "VBA/Excel"
+            ],
+            "Other":               [
+                "Playing guitar", "Art & illustration", "Electronics"
+            ]
+        }
+    };
+		
+    let _introduction = function() {
+        return `\
+            My name is &lt;b&gt;${Personal.Profile.ForeName} \
+            ${Personal.Profile.SurName}&lt;/b&gt;, \
+            I&#39;m &lt;b&gt;${Personal.Profile.Gender}&lt;/b&gt; \
+            and I was born on &lt;b&gt;${Personal.Profile.DateOfBirth}&lt;/b&gt;.\
+        `;
+    };
+		
+    let _location = function() {
+        return `I am from &lt;b&gt;${Personal.Location.City}, ${Personal.Location.Country}&lt;/b&gt;`;
+    };
+            
+    let	_list_specific_interests = function(specific) {
+        var html = "";
+			
+        if (Personal.Interests.hasOwnProperty(specific)) {
+            html = `Specific &lt;b&gt;${specific}&lt;/b&gt; interests include: &lt;ul&gt;`;
+                    
+            Personal.Interests[specific].forEach(interest => {
+                html += `&lt;li&gt;${interest}&lt;/li&gt;`;
+            });
+                        
+            return html += `&lt;/ul&gt;`;
+        }
+			
+        return `I have no interest in &lt;b&gt;${specific}&lt;/b&gt;!`;
+    };
+		
+    let	_list_interests = function(specific) {
+        var html = "";
+                
+        if (typeof(specific) !== "string") {
+            html = "Subjects I&#39;m interested in: &lt;ul&gt;";
+                        
+            Object.keys(Personal.Interests).forEach(interest => {
+                html += `&lt;li&gt;${interest}&lt;/li&gt;`;
+            });
+                            
+            html += "&lt;/ul&gt;";
+        } else
+            html = _list_specific_interests(specific);
+                
+        return html;
+    };
+		
+    return {
+        "TellUsAboutYourself":     _introduction,
+        "WhereAreYouFrom":         _location,
+        "WhatAreYourInterests":    _list_interests
+    };
+		
+})();
+
+                </code></pre>
+
+                <h2>Usage:</h2>
+                <pre id="apiusage" style="max-height: 100%; overflow: hidden"><code class="JavaScript">
+var el = document.getElementById("who-i-am");
+			
+el.innerHTML += WhoAmI.TellUsAboutYourself() + "&lt;br /&gt;";
+el.innerHTML += WhoAmI.WhereAreYouFrom() + "&lt;br /&gt;&lt;br /&gt;";
+			
+el.innerHTML += WhoAmI.WhatAreYourInterests() + "&lt;br /&gt;";
+			
+el.innerHTML += WhoAmI.WhatAreYourInterests("FrontendDevelopment") + "&lt;br /&gt;";
+el.innerHTML += WhoAmI.WhatAreYourInterests("BackendDevelopment") + "&lt;br /&gt;";
+el.innerHTML += WhoAmI.WhatAreYourInterests("Programming") + "&lt;br /&gt;";
+el.innerHTML += WhoAmI.WhatAreYourInterests("Other") + "&lt;br /&gt;";
+                
+                </code></pre>
+
+                <h2>Additional:</h2><br />
+
+                <p>
+                    I am currently trying to implement an <b>immortality</b>
+                    feature into the <b>API</b>, have tried a few things, for
+                    example:
+                </p>
+                <pre><code class="JavaScript">
+// In the event of my death
+document.getElementById(&#39;*&#39;).addEventListener("death", function(e) {
+    e.preventDefault();
+});
+                </code></pre>
+
+                <p>
+                    But I am unsure as to whether it will work. I did go over to
+                    <a href="https://stackoverflow.com/">StackOverflow</a> 
+                    seeking help but I was maliciously and mercilessly mocked.<br/><br/>
+
+                    I shan&#39;t give up. I&#39;ll figure this out
+                    even if it <i>kills</i> me...<br/><br/>
+                </p>
+
+                <h2 style="margin: 12px 0px;">Michael</h2>
+                <br />
+            </div>
+            <div id="latest-info" class="article-info" style="padding: 0px 12px;">
+                <h2 id="latest-article-title">Latest</h2>
             </div>
         </div>
     </body>
@@ -23,34 +149,21 @@
             var articlays;
             var url = Routes.parseUrl();
 
-        //    if (! Blog.loaded()) {
-        //    Blog.reset(); Blog.resetArticles();
-                Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
-                    Blog.handleBlogRequest(url);
+            Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
+                Blog.handleBlogRequest(url);
 
-                    Blog.loadArticles(0, function(articlay) {
-                        articlays = articlay;
-                        showLatest();
-                    });
+                Blog.loadArticles(0, function(articlay) {
+                    articlays = articlay;
+                    showLatest();
                 });
-        //    } else {
-        //        Blog.loadArticles(0, function(articlay) {
-        //            articlays = articlay;
-        //            showLatest();
-        //        });
-        //    }
+            });
 
             function showLatest() {
                 Blog.resetArticles();
-                console.log("Articlays == " + articlays.length);
                 Blog.getLatestArticles(3, function(latest) {
-                //    $("#latest-inner").html("");
-
-                //    console.log(`loaded ${latest.length} articlay`);
                     latest.map(function(article) {       
                         var img_url = url.path + ARTICLE_PREFIX + article.thumb;
 
-                    //    console.log(`adding articlay ${article.name}`);
                         $("#latest-info").append('\
                         <h3 \
                                 id="latest-' + article.name + '"\
@@ -83,13 +196,10 @@
                 $(".latest").on("click", function() {
                     var href= $(this).attr("title");
                     var real_url = $(this).attr("real_url");
-            //    $("#blog").load(href);
-                //    window.history.pushState(null, null, real_url);
-                console.log("REAL_URL == " + real_url);
                     window.location.href = real_url;
                 });
 
-                $("#home").niceScroll({
+                $("#home, #whoamiapi, #apiusage").niceScroll({
                     "cursorcolor": "#1E90FF",
                     "cursorborder": "#0A60AF",
                     "cursorwidth": "12px",
@@ -100,7 +210,14 @@
                     "background": "rgba(255, 255, 255, 0.25)",
                     "zindex": 22
                 }).resize();
-
+                
+                $('pre').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                    $(this).css("background", "rgba(0, 0, 0, 0)");
+                });
+                $('code').each(function(i, block) {
+                    $(this).css("background", "rgba(0, 0, 0, 0)");
+                });
             }
         });
     </script>

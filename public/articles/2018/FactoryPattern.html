@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />        
+    </head>
+    <body>
+        <div id="article" class="article">
+            <div class="article-bloglink" id="article-bloglink-FactoryPattern">
+                Back to the Blawg
+            </div>
+            <div class="article-date" id="article-date-FactoryPattern">
+            </div>
+            <h1 class="ThisArticleID" id="FactoryPattern" style="clear: both; padding-top: 12px;"></h1>        
+            
+            <p>
+            Howdy there, folks!<br /><br />
+            
+            Last time I gave a brief description and some examples of the <b>module</b> 
+            pattern, we went over basic concepts like <b>public</b> and <b>private</b> 
+            members - and much fun was had by all!.<br /><br />
+            
+            You&#39;d think I&#39;d be satisfied...but I never am to be honest<br /><br />
+            
+            So let&#39;s dive into the <b>factory</b> pattern, it will literally make you a 
+            more <i>productive</i> programmer! Oh LOL, etc!!!<br /><br />
+            </p>
+            
+            
+            <h2>Why factory?</h2>
+            
+            <p>
+            They say you should never judge a book by its cover, we can judge a design pattern 
+            by it&#39;s name (sometimes), and the term <i>factory</i> is a descriptive one for 
+            sure.<br /><br />
+            
+            In terms of prevalence the factory pattern might be right up there alongside our 
+            old friend <b>module</b>, it&#39;s pretty ubiquitous in programming, but I&#39;ve 
+            probably seen it used more in <b>JavaScript</b> than any other language. I recall 
+            writing similar functions in c many moons ago, not even knowing at the time that 
+            it was a bone-fide pattern. And you will find that often - you&#39;ll read up on 
+            a particular pattern and realise you&#39;ve been using it all along...I love that!
+            <br /><br />
+            So what does the factory pattern <i>actually</i> do for us?<br /><br />
+            </p>
+            
+            <h2>Creating new objects</h2>
+            
+            <p>
+            First I think it&#39;s probably best that we swat up go over the concept of an 
+            object. It ain&#39;t like <b>c++</b> or <b>php</b> where an object is an 
+            instantiation of a class. Objects are <b>everywhere</b> in JavaScript, strings 
+            are objects, numbers are objects, every-bloody-thing is an object. We use their 
+            methods all the time without really caring:
+            </p>
+            
+            <pre><code class="JavaSript">
+    // Methods, methods all over the place
+    console.log(Math.floor(Math.random() * 1000000).toString());
+            </code></pre>
+            
+            <p>
+            In the module pattern article we created a module that returned an <b>object 
+            literal</b> -- essentially it&#39;s a collection of <b>properties</b> or comma-
+            separated <i>key:value</i> pairs enshrined between a pair of <i>curly 
+            braces</i>. The <b>key</b> is the property name we use to reference the property 
+            <b>value</b>, example:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var obj = {
+        &quot;property_0&quot;: &quot;value 0&quot;,
+        &quot;property_1&quot;: &quot;value 1&quot;
+    };
+            </code></pre>
+            
+            <p>
+            Extremely simple example but makes a point. We can see that the properties are 
+            separated by a <b>comma</b> and that the key and value fields of each property 
+            are separated by a <b>colon</b>.<br /><br />
+            
+            So we can use the obj variable to access these properties thusly:
+            </p>
+            
+            <pre><code class="JavaSCript">
+    console.log(obj.property_0);
+    console.log(obj.property_1);
+            </code></pre>
+                
+            <p>
+            I'm not going to spend too much time going in deep on this, just want to make 
+            sure we have some idea of what an object literal is. It&#39;s worth nothing, 
+            however, that these <b>values</b> can be anything, a string, a number, an 
+            array...another object or even a function! I honestly dunno why some people 
+            are so down on JavaScript, I love this:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var	obj = {
+        &quot;a_num&quot;: 1234,
+        &quot;a_string&quot;: &quot;&#39;allo M&#39;sieur!&quot;,
+        &quot;an_array&quot;: [
+            4321,
+            &quot;Quell bitte, Madame!&quot;
+            //
+            // We could even put another array or object in here
+            // if we want...unlimited pah-wah!
+        ],
+         &quot;an_object&quot;: {
+            &quot;another_object&quot;: {
+                &quot;another_array&quot;: [
+                    &quot;you&quot;,
+                    &quot;get&quot;,
+                    &quot;the&quot;,
+                    &quot;idea!&quot;
+                ],
+                &quot;even_more_stuff&quot;: &quot;some stuff&quot;
+            }
+        },
+        &quot;even_a_function&quot;: function() {
+            // Imagine we, like, created more objects in here!? Oh
+            // my God, just like, you know...my head, can&#39;t...like,
+            // you know -- literally, etc.
+        }
+    };
+            </code></pre>
+            
+            <p>
+            All very nice - these crazy objects can get quite complex, let me tell thee!
+            <br /><br />
+            You&#39;re probably bored with object literals, but there&#39;s more. A function 
+            can be an object, in fact - the <b>closure</b> functions we saw in the <b>module 
+            pattern</b> examples are objects. The module pattern basically returns an object 
+            with <b>private</b> and <b>public</b> properties and methods.
+            </p>
+            
+            <pre><code class="JavaSript">
+    function someObject() {
+        // The <b>let</b> keyword is like <b>var</b> only let will
+        // ensure the declared value is only available within
+        // the scope of the function/object
+        //
+        // No more tangents...Google it!
+        //
+        let	hide_me = &quot;Private property&quot;;
+                    
+        // We can use the <i>mystical</i> <b>this</b> keyword to define
+        // public values...yeah, we don&#39;t <b>need</b> to be modular
+        // and return public properties/methods in an object!
+        //
+        this.show_me = &quot;Public property&quot;;
+    }
+            </code></pre>
+            
+            <p>
+            So how do we use ths? Notice that it isn&#39;t a <b>closure</b>, so it is not one 
+            of those immediately invoked functions we read about. So it&#39;s not a closure, 
+            what we really have here is a kind of <b>class</b> (strictly <b>not</b> a class, 
+            but why so pedantic?) or maybe a better description is a <b>blueprint</b>. We can 
+            use it to create objects which will have their own individual set of properties 
+            and methods.<br /><br />
+            
+            We take that blueprint and we say, hey...JavaScript, gimme a <i>new</i> 
+            <b>instance</b> of this <b>blueprint</b>. We can build the same thing a 
+            million times if we have the blueprint...so we can make as many of these 
+            <b>objects</b> as we like. To do this we need the <i>infamous</i> <b>new</b> 
+            keyword:
+            </p>
+            
+            <pre><code class="JavaScript">
+    // Hey JavaSript! Gimmie a new...umm...someObject?
+    //
+    var	obj = new someObject();
+                
+    console.log(&quot;Why bother? We know it won&#39;t work: &quot; + obj.hide_me);
+    console.log(&quot;Pretty sure this will work: &quot; + obj.show_me);
+            </code></pre>
+            
+            <p>
+            Now again, I ain&#39;t going in all deep on this, just another tangent. We will 
+            see more complex examples of <i>this type of thing</i> as we grow older and become 
+            wiser.<br /><br />
+            </p>
+            
+            
+            <h2>So what about the factories?</h2>
+            
+            <p>
+            I came up with a rather absurd but hopefully interesting example to help illustrate 
+            this admittedly simple concept. Let us imagine that we own this an actual factory 
+            and it produces people. Actual, living people being churned out by some production 
+            line. I&#39;m sure there&#39;s like, some maniac out there who would really love 
+            to own a business like this, let&#39;s imagine we are that despotic individual.<br /><br />
+            
+            We hire someone to build us our blueprint that we can use to define any type of 
+            person. With this blueprint we can produce person after person after person...
+            </p>
+            
+            <pre><code class="JavaScript">
+    function person() {
+        // Let*#39;s randomly pick a sex, 0 for male, 1 for female...
+        let	sex = Math.floor(Math.random() * 2);            
+        let	age = 0;
+    }
+                
+    // Jus&#39; churnin&#39; out them people!
+    //
+    var	a_person = new person();
+    var	another_person = new person();
+                
+    // Whooooa!
+    //
+    var	twins = [
+        new person(),
+        new person()
+    ];
+            </code></pre>
+            
+            <p>
+            Mr factory man decides he&#39;s fed up with all the babies occupying the shelves of 
+            his <b>person shop</b>, so he decides to alter the <b>person()</b> blueprint so that 
+            he can create people of any age:
+            </p>
+            
+            <pre><code class="JavaScript">
+    function person(set_age_to) {
+        // Let&#39;s randomly pick a sex, 0 for male, 1 for female...
+        let	sex = Math.floor(Math.random() * 2);            
+        let	age = set_age_to;
+    }
+                
+    // Create a 25 year old new-born baby.
+    //
+    var	baby = person(25);
+            </code></pre>
+            
+            <p>
+            Cool, so every time we create a person from this blueprint we get an individual 
+            object with its own set of properties and even methods. Let&#39;s imagine 
+            that Mr factory man, high on his own maniacal sense of power, decides that he 
+            should be able to change the age of an already living person. He really is nuts, 
+            that guy:
+            </p>
+            
+            <pre><code class="JavaScript">
+    function person(set_age_to) {
+        // Let&#39;s randomly pick a sex, 0 for male, 1 for female...
+        let	sex = Math.floor(Math.random() * 2);            
+        let	age = set_age_to;
+                
+        // Let&#39;s use <b>this</b> to create some public methods, first
+        // the method to the persons name..
+        this.setAge = function(set_age_to) {
+            age = set_age_to;
+        };
+                    
+        // Public member to show age.
+        this.getAge = function() {
+            return age.toString();
+        }
+    }
+            
+    // Create a 50 year old.
+    //
+    var new_dude = new person(50);
+                
+    // Then rob him of 25 years of what short life he has
+    // left for a laugh!
+    //
+    new_dude.setAge(75);
+                
+    // What age is this &quot;new_dude&quot;?
+    //
+    console.log(new_dude.getAge());
+    // Oh my!
+            </code></pre>
+            
+            <h2>Michael -- you are still going on about objects!</h2>
+            
+            <p>
+            I know. About the factories - we already sort of have one, we have this blueprint 
+            and we can churn out people, even set their age.<br /><br />
+            
+            What we can do next is write another function... a factory function that will 
+            produce these nifty little objects for us. The factory pattern is exactly that 
+            and you&#39;re probably already thinking of ways you can achieve this.<br /><br />
+            
+            If you&#39;re already trying to write one then you&#39;re on the right track, 
+            the concept itself is expressive enough to tell us most of what we want to know. 
+            One of the things people like about churning out the objects in this way is we 
+            cut out that <i>pesky</i> <b>new</b> keyword...lot o&#39; folk don&#39;t like it 
+            simply because they long for more traditional <b>OOP</b> constructs and paradigms 
+            like what you&#39;d find in php...I say, go...go use php then! Sa-mattaaaaa-wit-
+            yaaaaa?<br /><br />
+            
+            Yeah, these factories can be very useful, and may even be seen forming part of a 
+            larger pattern. Here is a simple example of a factory that will pump out the people 
+            for ol&#39; Mr factory face over there:
+            </p>
+            
+            <pre><code class="JavaScript">
+    // Our (modified) person() blueprint.
+    //
+    function person(set_age_to) {
+        var	age = set_age_to;
+                    
+        // This time we will have a private method so that
+        // Mr factory man can have his fun changing peoples
+        // ages.
+        //
+        var setAge = function(set_age_to) {
+            age = set_age_to;
+        };   
+                    
+        // We could do the old <b>this</b> thing to declare our
+        // private members, but we like this little pattern.
+        //
+        // By we I mean me...and me.
+        //
+        return {
+            // And reveal a public option that calls the
+            // private method directly
+            &quot;setAge&quot;: setAge,
+                            
+            // Let&#39;s have another public method that
+            // reveals the age to us
+            &quot;getAge&quot;: function() {
+                return age.toString();
+            }
+        }
+    };
+                           
+    // Now here&#39;s the factory...
+    //
+    function newPerson(set_age_to) {
+        // The person() object expects the set_age_to
+        // parameter.
+        //
+        // The newPerson() function does not! It can be
+        // omitted. If it is, we&#39;ll set it to default 0
+        if (typeof(set_age_to) === &quot;undefined&quot;)
+            var	set_age_to = 0;
+                
+        // All good, return the new person!
+        return new  person(set_age_to);
+    }
+                
+    // It has never been easier!
+    //
+    var	him = newPerson();
+    var	her = newPerson(5);
+    var	they = newPerson(0);
+    var	zir = newPerson(15);
+    var	ze = newPerson(0);
+    var	etc = newPerson(65536);
+                
+    // Let&#39;s just check it's all working fine..
+    //
+    console.log(&quot;Age of him is &quot; + him.getAge());
+    console.log(&quot;Age of her is &quot; + her.getAge());
+    console.log(&quot;Age of they is &quot; + they.getAge());
+    console.log(&quot;Age of zir is &quot; + zir.getAge());
+    console.log(&quot;Age of ze is &quot; + ze.getAge());
+    console.log(&quot;Age of etc is &quot; + etc.getAge());
+            </code></pre>
+            
+            <p>
+            Hopefully you can clearly see the benefits of using a pattern like this -- even 
+            with such a simple example. The factory function can make decisions based on 
+            parameters given, create, modify and then return the <b>new</b> object for us. 
+            And check out the familiar old <i>revealing</i> mechanism, returning the object 
+            literal with some <b>public</b> members.
+            <br /><br />
+            Tasty, eh? <br /><br />
+            </p>
+            
+            
+            <h2>Over-due conclusion:</h2>
+            
+            <p>
+            Factory is fairly simple but absolutely worth knowing, this is a basic example. 
+            Best thing to do is go out and tinker, try things. I&#39;ve gone off on some 
+            rather odd tangents in this episode. We explored a few little areas...just enough 
+            to <i>whet your whistle</i> as they used to say but hopefully someone is learning 
+            something.<br /><br />
+            
+            If you&#39;re new to the factory pattern and you&#39;re a bit like me you&#39;ll 
+            immediately be thnking of all the wonderful things you can do with this pattern. You 
+            will see it a lot, and you&#39;ll probably use it a lot, too.<br /><br />
+            
+            Maybe try extending the person() object to store other properties, name, number of 
+            legs, arms, heads, etc. Try stuff!<br /><br />
+            
+            Just don&#39;t get all hungry and tripped out on power like old Mr factory man over 
+            there, it&#39;s bad <b>ju-ju</b>!<br /><br />
+            </p>
+            
+            <h2>Michael</h2>
+        </div>
+
+        <div id="article-info" class="article-info">
+            <h2 style="width: 100%; padding-left: 12px;">
+                Relevant categories
+            </h2>               
+            <div 
+                id="article-languages-FactoryPattern"  
+                class="languages"
+            >
+            </div>
+            <h2 id="similar-content-header" style="width: 100%; padding-left: 12px; margin-bottom: 0px;">
+            </h2>
+            <div
+                id="article-similar-FactoryPattern" 
+                class="articles-similar"
+            >
+            </div>
+        </div>
+        <script>
+                $(document).ready(function() {
+                    $("#blog").niceScroll().scrollend(function() {
+                        return;
+                    });
+
+                    var this_article_id = $(".ThisArticleID").attr("id");
+
+                    Blog.getArticleByName(this_article_id, function(post) {
+                        $(".ThisArticleID").html(post.title);
+                        $("#article-date-" + this_article_id).html(Blog.getDateTranslation(post.published));
+                        $("#article-languages-" + this_article_id).html(
+                            Blog.getLanguagesHTML(this_article_id, post.languages)
+                        );
+
+                        var html = Blog.getSimilarHTML(Blog.getSimilar(post, 3, this_article_id));
+                        if (html != "") {
+                            $("#similar-content-header").html("Similar...");
+                            $("#article-similar-" + this_article_id).html(html);
+                        }
+
+                        $(".project-language").css("margin-bottom", "8px");
+
+                        $(".blog-language, .article-similar").on("mouseover", function() {
+                            $(this).animate({ "opacity": "0.99" }, 500, "linear");
+                        });
+                        $(".blog-language, .article-similar").on("mouseout", function() {
+                            $(this).stop().animate({ "opacity": "0.75" }, 500, "linear");
+                        });
+                            
+                        $(".blog-language").on("click", function() {
+                            var language = $(this).attr("language");
+                            var route = Routes.parseUrl().address + "?blog=" + language;
+                            window.location.href = route;
+                        });
+
+                        $(".article-similar").on("click", function() {
+                            var href= $(this).attr("title");
+                            $("#blog").load(href);
+                            var real_url = $(this).attr("real_url");
+                            window.history.pushState(null, null, real_url);        
+                        });
+                        $("#article-bloglink-" + this_article_id).on("click", function() {
+                            var href = Routes.parseUrl().address + "?blog";
+                            window.location.href = href;
+                        });
+                        //hljs.configure({useBR: true});                  
+                        $('pre').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
+                        $('code').each(function(i, block) {
+                            $(this).css("margin", "0px");
+                        });
+                    });
+                    
+                });
+        </script>
+    </body>
+</html>

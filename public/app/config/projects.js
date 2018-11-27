@@ -46,10 +46,17 @@
                         id="project-' + name + '-language-' + language + '" \
                         class="project-language" \
                         title="Click to search for ' + language + '" \
+                        language="' + language + '" \
                     >\
                         ' + language + '\
                     </div>\
                 ';
+            });
+
+            $(".project-language").on("click", function() {
+                var language = $(this).attr("language");
+                var route = Routes.parseUrl().address + "?blog=" + language;
+                window.location.href = route;
             });
 
             return html;
@@ -92,7 +99,6 @@
 
 
         let _projectThumbHTML = function(project) {
-            console.log("thumb: " + url.path + project.thumb);
             return '\
                 <img \
                     id="project-thumb-' + project.name + '" \
@@ -132,11 +138,8 @@
 
         let _showProject = function(duration, from, limit, current, _callback) {
             if ((limit > 0 && current >= limit) || from >= _projects.length) {
-                console.log("DONNNE");
                 return _callback();
             }
-
-            console.log("Current from == " + from + " of total " + _projects.length);
 
             _getProjectHTML(duration, from);
 

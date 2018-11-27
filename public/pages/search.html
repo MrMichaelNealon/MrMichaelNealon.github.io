@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div id="search">
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                var url = Routes.parseUrl();
+                var search = url.search.split("=")[1];
+
+                window.history.pushState(null, null, url.url);
+                if (typeof(search) !== "string") search = "";
+
+                $("#blog").append(search);
+
+                var url = Routes.parseUrl();
+                
+                var articlays = [];
+                var hasArticlay = true;
+
+                var scrollLock = false;
+
+                var from =0;
+                var to = 3;
+        
+                Blog.reset();
+
+                if (! Blog.loaded()) {
+                    Blog.loadArticlesJSON(ARTICLE_YEAR_START, function(data) {
+                        Blog.handleBlogSearch(search, function(articlay) {
+                            articlays = articlay;
+                            showResults();
+                        });
+                    });
+                } else {
+                    Blog.handleBlogSearch(search, function(articlay) {
+                        articlays = articlay;
+                        showResults();
+                    });
+                }
+
+                function showResults() {
+                    var el = $("#search");
+
+                    $("#search").html('\
+                        <h2>Search for <b>&#39;' + search + '&#39;</b> returned <b><i>' + articlays.length + '</i> results</b></h2>\
+                    ');
+
+                    articlays.forEach(function(articlay) {
+                        el.append('\
+                            <div \
+                                id="search-result-' + articlay.name +'" \
+                                class="search-item" \
+                                title="' + Routes.parseUrl().path + ARTICLE_PREFIX +  articlay.published.substr(6) + '/' + articlay.name + '.html"\
+                                real_url="' + Routes.parseUrl().address + '?blog/' + articlay.published.substr(6) + '/' + articlay.name + '.html"\
+                            >\
+                                <div \
+                                    id="search-title-' + articlay.name + '" \
+                                    class="search-title" \
+                                ><h1 style="margin-bottom: 16px;">' + articlay.title + '</h1></div>\
+                                <div \
+                                    id="search-thumb" \
+                                    class="search-thumb" \
+                                >\
+                                    <img \
+                                        src="' + Routes.parseUrl().path + ARTICLE_PREFIX + articlay.thumb + '" \
+                                        width="100%" height="auto" \
+                                    >\
+                                </div>\
+                                <div \
+                                    id="search-info" \
+                                    class="search-info" \
+                                >\
+                                    <div \
+                                        id="search-subtitle-' + articlay.name + '" \
+                                        class="search-subtitle" \
+                                    ><h3 style="margin-bottom: 12px;">' + articlay.subtitle + '</h3></div>\
+                                    <div \
+                                        id="search-languages-' + articlay.name + '" \
+                                        class="search-languages" \
+                                    >\
+                                        <p style="color: #3EC0FF;">\
+                                            ' + articlay.description + '\
+                                        </p>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        ');
+                    });
+
+                    $("#search").niceScroll({
+                        "cursorcolor": "#1E90FF",
+                        "cursorborder": "#0A60AF",
+                        "cursorwidth": "12px",
+                        "cursorborder": "2px #0A60CF solid",
+                        "smoothscroll": "true",
+                        "touchbehaviour": "true",
+                        "bouncescroll": "true",
+                        "background": "rgba(255, 255, 255, 0.25)",
+                        "zindex": 22,
+                        "horizrailenabled": false
+                    }).resize();
+
+                    $(".search-item").on("mouseenter", function() {
+                        $(this).animate({
+                            "background-color": "rgba(20, 20, 34, 0.50)"
+                        }, 500, "linear");
+                    });
+                    $(".search-item").on("mouseleave", function() {
+                        $(this).stop().animate({
+                            "background-color": "rgba(20, 20, 34, 0.25)"
+                        }, 500, "linear");
+                    });
+                    
+                    $(".search-item").on("click", function() {
+                        var real_url = $(this).attr("real_url");
+                        window.location.href = real_url;
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

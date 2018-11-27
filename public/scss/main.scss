@@ -50,8 +50,6 @@
         overflow-y: hidden;
     }
 
-
-
 ///////////////////////////////////////////////////////////
 //  Imports
 //
@@ -65,5 +63,45 @@
     @import "projects.scss";
     @import "blog.scss";
     @import "article.scss";
+    @import "search.scss";
     @import "media.scss";
 
+
+    a {
+        color: #2EB0FF;
+        text-decoration: none;
+        font-family: $project-languages-font;
+        font-size: 11px;
+        line-height: 12px;
+    }
+
+    a:hover {
+        color: #3ED0FF;
+        text-decoration: underline;
+    }
+
+    p {
+        color: #FFF;
+        font-family: $project-languages-font;
+        font-size: 11px;
+        line-height: 12px;
+    }
+
+    code, pre {
+        font-size: 11px;
+        line-height: 12px;
+    }
+
+    @media (min-width: $screen-medium) {
+        a, p, pre, code {
+            font-size: 14px;
+            line-height: 14px;
+        }
+    }
+
+    @media (min-width: $screen-large) {
+        a, p, pre, code {
+            font-size: 16px;
+            line-height: 16px;
+        }
+    }

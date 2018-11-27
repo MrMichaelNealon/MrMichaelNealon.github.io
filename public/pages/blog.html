@@ -14,8 +14,6 @@
         <script>
             $(document).ready(function() {
                 var url = Routes.parseUrl();
-
-            //    if (Routes.parseUrl().search.substr(0, 5) == "?blog") {
                 
                 var articlays = [];
                 var hasArticlay = true;
@@ -74,9 +72,7 @@
 
                         if (from <= 3) {
                             $(".blog-preview, .blog-language").on("mouseenter", function() {
-                                console.log("A-thu-thu-thu?");
                                 if (scrollLock) return;
-                                console.log("A-thu?");
                                 $(this).stop().animate({ "opacity": "0.99" }, 500, "linear");
                             });
                             $(".blog-preview, .blog-language").on("mouseleave", function() {
@@ -85,12 +81,15 @@
                             });
                             $(".blog-title").on("click", function() {
                                 var href= $(this).attr("title");
-                                console.log("Showing article " + href);
-                            //    Routes.getPage(href);
-                            //    window.location.href = href;
                                 $("#blog").load(href);
                                 var real_url = $(this).attr("real_url");
                                 window.history.pushState(null, null, real_url);
+                            });
+                            
+                            $(".blog-language").on("click", function() {
+                                var language = $(this).attr("language");
+                                var route = Routes.parseUrl().address + "?blog=" + language;
+                                window.location.href = route;
                             });
                         }
                         scrollLock = false;
@@ -106,8 +105,6 @@
                         }
                     }
                 }).resize();
-            //        console.log("This is an articlay!");
-            //    }
             });
         </script>
     </body>

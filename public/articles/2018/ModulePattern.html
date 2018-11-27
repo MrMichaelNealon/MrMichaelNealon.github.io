@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta content="True" name="HandheldFriendly" />	
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width" />        
+    </head>
+    <body>
+        <div id="article" class="article">
+            <div class="article-bloglink" id="article-bloglink-ModulePattern">
+                Back to the Blawg
+            </div>
+            <div class="article-date" id="article-date-ModulePattern">
+            </div>
+            <h1 class="ThisArticleID" id="ModulePattern" style="clear: both; padding-top: 12px;"></h1>        
+            
+            <p>
+            A common design pattern used in <b>JavaScript</b> is the 
+            <b>module</b> pattern. Modules are useful for many things, 
+            they allow us to separate our application into smaller parts 
+            and work on them individually - this can help keep our code 
+            clean and more maintainable.<br /><br />
+            </p>
+            
+            <p>
+            But modules are more than that, in JavaScript a module is 
+            typically a <b>closure</b> (or an <b>immediately invoked 
+            function expression</b> -- <b><i>IIFE</i></b>) that can have 
+            <b>private</b>, <b>public</b> and <b>protected</b> properties 
+            and methods.<br /><br /> 
+            
+            So it&#39;s like a class, sort of.<br /><br />
+            </p>
+            
+            <h2>Closures</h2>
+            
+            <p>
+            JavaScript allows us to define <b>closures</b>. Normally when 
+            we declare a function in JavaScript: 
+            </p>
+            
+            <pre><code class="JavaScript">
+    function doStuff() {
+        console.log(&quot;Doing stuff...&quot;);
+    }
+            </code></pre>
+                
+            <p>
+            We need to call the function explicitly:<br />
+            </p>
+            
+            <pre><code class="JavaScript">
+    doStuff();
+            </code></pre>
+            
+            <p>
+            A closure is a little different, instead of us having to 
+            invoke the function by explicitly calling it, we can have 
+            it be called immediately on declaration. The closure will 
+            have it&#39;s own internal, private scope: 
+            </p>
+            
+            <pre><code class="JavaScript">
+    var doStuff = (function() {
+                
+        // Code goes here.
+                
+    })();
+            </code></pre>
+            
+            <p>
+            We do not need to call any function, the code within the 
+            anonymous closure assigned to <b>doStuff</b> is <i>executed</i> 
+            or <i>invoked</i> immediately. <br /><br />
+            </p>
+            
+            <h2>Private properties and methods</h2>
+            
+            <p>
+            We can declare <b>private</b> methods and variables within the 
+            function:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var doStuff = (function() {
+                
+        var	private_var;
+                    
+        function setPrivateVar(string) {
+            private_var = string;
+        }
+                    
+        function showPrivateVar() {
+            console.log(private_var);
+        }
+                    
+        setPrivateVar(&quot;This is a private string&quot;);
+        showPrivateVar();
+                    
+    })();
+            </code></pre>
+            
+            <p>
+            Because the function is immediately invoked, we will see &quot;This 
+            is a private string&quot; written to the console. The closure 
+            function is called immediately on declaration - first, it calls 
+            the <b>setPrivateVar()</b> private method which sets the private 
+            variable, then calling the <b>showPrivateVar()</b> private method 
+            which dumps the private variable to the console. 
+            </p>
+            
+            <p>
+            These <b>private</b> methods can be accessed from within the 
+            function, but if we do something like:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var doStuff = (function() {
+                
+        var	private_var;
+                    
+        function setPrivateVar(string) {
+            private_var = string;
+        }
+                    
+        function showPrivateVar() {
+            console.log(private_var);
+        }
+                    
+        setPrivateVar(&quot;This is a private string&quot;);
+        showPrivateVar();
+                    
+    })();
+            
+    console.log(doStuff.private_var);
+            </pre></code>
+            
+            <p>
+            We will get a type error:
+            </p>
+            
+            <pre><code class="JavaScript">
+    TypeError: doStuff is undefined.
+            </code></pre>
+            
+            <p>
+            The reason for this is that the <b>anonymous</b> closure 
+            function isn&#39;t returning anything, no methods or 
+            properties are being made public. 
+            </p>
+            
+            <p>
+            If we change the code so that it returns something - say, 
+            an <b>object literal</b>:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var doStuff = (function() {
+                
+        var	private_var;
+                    
+        function setPrivateVar(string) {
+            private_var = string;
+        }
+                    
+        function showPrivateVar() {
+            console.log(private_var);
+        }
+                    
+        setPrivateVar(&#39;This is a private string&#39;);
+        showPrivateVar();
+                    
+        return {
+        };
+                    
+    })();
+                
+    console.log(doStuff.private_var);
+            </code></pre>
+            
+            <p>
+            Instead of the type error we got the first time we simply see:
+            </p>
+            
+            <pre><code class="JavaScript">
+    undefined
+            </code></pre>
+            
+            <p>
+            So it&#39;s not telling us that <b>doStuff</b> is <i>undefined</i>, 
+            but that the specific property <b>private_var</b> is <i>undefined</i> 
+             -- which is what we want, it is supposed to be <i>private</i>, right? 
+            </p>
+            
+            <p> 
+            The two methods are also private, we can call them from within  
+            the module no problem:
+                
+            <pre><code class="JavaScript">
+    setPrivateVar(&quot;This is a private string&quot;);
+    showPrivateVar();
+            </code></pre>
+            
+            <p>
+            But not from outside the module, for example, if we try to 
+            change the private_var by calling <b>setPrivateVar()</b> from  
+            <i>outside</i> the closure: 
+            </p>
+            
+            <pre><code class="JavaScript">
+    console.log(doStuff.setPrivateVar(&quot;Some random string&quot;));
+            </code></pre>
+            
+            <p>
+            We will get an error:
+            </p>
+            
+            <pre><code class="JavaScript">
+    TypeError: doStuff.setPrivateVar is not a function
+            </code></pre>
+            
+            <p>
+            The same will happen if we try to call the <b>showPrivateVar()</b>  
+            method outside of the closure.<br /><br />
+            </p>
+            
+            <h2>Public properties and methods</h2>
+            
+            <p>
+            We can give access to <b>public</b> properties and methods in 
+            the returned <b>object literal</b> fairly easily:
+            </p>
+            <pre><code class="JavaScript">
+    var	doStuff = (function() {
+                
+        var	private_var = &quot;Private stuff&quot;;
+                    
+        // Returned object literal can be accessed via the
+        // doStuff variable.
+        return {
+            &quot;get_public_copy&quot;: function() {
+                return private_var;
+            }
+        };
+                
+    })();
+            </code></pre>
+            
+            <p>
+            It is important to note that the returned object is part of the  
+            closure and so has access to properties and methods in that  
+            scope -- it can return, or <i>reveal</i> the private <b>private_var</b>  
+            property to us. We can access this public method thusly: 
+            </p>
+            
+            <pre><code class="JavaScript">
+    console.log(doStuff.get_public_copy());
+            </code></pre>
+            
+            <p>
+            All we&#39;ve done is return an object literal that is assigned 
+            to <b>doStuff</b>, this provides access to a public method named 
+            <b>get_public_copy</b>. The get_public_copy method simply executes 
+            an anonymous function that accesses the private property from 
+            within the closure and returns it to us.
+            </p>
+            
+            <p>
+            We can also reveal private methods in a similar way:
+            </p>
+            
+            <pre><code class="JavaScript">
+    var	doStuff = (function() {
+                
+        var	private_var = &quot;Private stuff&quot;;
+                    
+        var	showPrivateVar = function() {
+            console.log(private_var);
+        };
+                    
+        return {
+            &quot;showPrivateVar&quot;: showPrivateVar
+        };
+                
+    })();
+            </pre></code>
+            
+            <p>
+            What we now have is a <b>protected</b> method, or a private method 
+            being made available via a publicly accessible property.
+            </p>
+            
+            <p>
+            There is so much more that we can do with the module and revealing 
+            module patterns, these are a few basic examples but it&#39;s a design 
+            pattern you&#39;ll come across quite often in JavaScript.<br /><br />
+            </p>                    
+
+            <h2 style="margin-bottom: 12px;">Michael</h2>
+        </div>
+
+        <div id="article-info" class="article-info">
+            <h2 style="width: 100%; padding-left: 12px;">
+                Relevant categories
+            </h2>               
+            <div 
+                id="article-languages-ModulePattern"  
+                class="languages"
+            >
+            </div>
+            <h2 id="similar-content-header" style="width: 100%; padding-left: 12px; margin-bottom: 0px;">
+            </h2>
+            <div
+                id="article-similar-ModulePattern" 
+                class="articles-similar"
+            >
+            </div>
+        </div>
+        <script>
+                $(document).ready(function() {
+                    $("#blog").niceScroll().scrollend(function() {
+                        return;
+                    });
+
+                    var this_article_id = $(".ThisArticleID").attr("id");
+
+                    Blog.getArticleByName(this_article_id, function(post) {
+                        $(".ThisArticleID").html(post.title);
+                        $("#article-date-" + this_article_id).html(Blog.getDateTranslation(post.published));
+                        $("#article-languages-" + this_article_id).html(
+                            Blog.getLanguagesHTML(this_article_id, post.languages)
+                        );
+
+                        var html = Blog.getSimilarHTML(Blog.getSimilar(post, 3, this_article_id));
+                        if (html != "") {
+                            $("#similar-content-header").html("Similar...");
+                            $("#article-similar-" + this_article_id).html(html);
+                        }
+
+                        $(".project-language").css("margin-bottom", "8px");
+
+                        $(".blog-language, .article-similar").on("mouseover", function() {
+                            $(this).animate({ "opacity": "0.99" }, 500, "linear");
+                        });
+                        $(".blog-language, .article-similar").on("mouseout", function() {
+                            $(this).stop().animate({ "opacity": "0.75" }, 500, "linear");
+                        });
+                            
+                        $(".blog-language").on("click", function() {
+                            var language = $(this).attr("language");
+                            var route = Routes.parseUrl().address + "?blog=" + language;
+                            window.location.href = route;
+                        });
+
+                        $(".article-similar").on("click", function() {
+                            var href= $(this).attr("title");
+                            $("#blog").load(href);
+                            var real_url = $(this).attr("real_url");
+                            window.history.pushState(null, null, real_url);        
+                        });
+                        $("#article-bloglink-" + this_article_id).on("click", function() {
+                            var href = Routes.parseUrl().address + "?blog";
+                            window.location.href = href;
+                        });
+                        //hljs.configure({useBR: true});                  
+                        $('pre').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
+                        $('code').each(function(i, block) {
+                            $(this).css("margin", "0px");
+                        });
+                    });
+                    
+                });
+        </script>
+    </body>
+</html>

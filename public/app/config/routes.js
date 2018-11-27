@@ -46,6 +46,14 @@
             "target": "content"
         };
 
+        let searchEngine = {
+            "name": "search",
+            "route": "/search",
+            "href": "./public/pages/search.html",
+            "title": "Search",
+            "target": "content"
+        };
+
 
         let _navLink = function(link) {
             if (link < 0 || link >= _links.length)
@@ -71,6 +79,13 @@
             _links.map(function(link, index) {
                 el.innerHTML += _navLink(index);
             });
+
+            el.innerHTML += '\
+                <form id="menu-form">\
+                    <input id="menu-search" name="blog" type="text" value="s-e-a-r-c-h">\
+                    <input id="menu-submit" type="submit" value="Go!">\
+                </form>\
+            ';
         };        
         
         
@@ -173,6 +188,8 @@
         let _loadNav = function(link, name, _callback) {
             if (name == "page404")
                 link = page404;
+            else if (name == "search")
+                link = searchEngine;
 
             if (link['name'] == name) {
                 $.ajax({
@@ -189,7 +206,7 @@
                             _callback();
 
                         var url = _parseUrl();
-                        if (name != "page404")
+                        if (name != "page404" && name != "search")
                             var href = url.address + "?" + name;
 
                         window.history.pushState(null, null, href);
@@ -201,11 +218,13 @@
 
         let _nav = function(name, _callback) {
             var done = false;
-        //    var url = _parseUrl();
+        
+            if (name == "search")
+                _loadNav(null, "search", _callback);
+            else {
             _links.forEach(function(link) {
                 if (link['name'] == name) {
                     _loadNav(link, name, _callback);
-                //    window.history.pushState(null, null, url.address + "?" + name);
                     done = true;
                     return;
                 }
@@ -213,6 +232,7 @@
 
             if (! done)
                 return _loadNav(null, "page404", _callback);
+            }
         };
 
 
@@ -230,7 +250,15 @@
             if (search.substr(0, 1) == "?") search = search.substr(1);
 
             var page_name = search.split("/")[0];
-    
+
+            if (search.substr(0, 4) == "blog" && search.substr(4, 1) == "=") {
+                var search_string = search.substr(5);
+
+                if (search_string != "") {
+                    page_name = "search";
+                }
+            }
+        
             _nav(page_name);
         };
 

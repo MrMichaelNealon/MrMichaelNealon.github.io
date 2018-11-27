@@ -2,7 +2,6 @@
 //  public/app/config/social-media.js
 //
 
-
     const   SocialMedia = (function() {
 
         let _links = [

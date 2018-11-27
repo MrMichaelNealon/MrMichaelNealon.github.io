@@ -65,14 +65,27 @@
             $("#header-menu").on("click", function() {
                 menu_locked = true;
                 _showMenu(function() {
-                    menu_locked = false;
+                    $("#menu-form, #menu-search, #menu-submit").css({
+                        "display": "block",
+                        "opacity": "0.01"
+                    });
+                    $("#menu-form, #menu-search, #menu-submit").animate({
+                        "opacity": "0.99"
+                    }, 500, "linear", function() {
+                        menu_locked = false;
+                    });
                 });
             });
 
             $("#menu").on("mouseleave", function() {
                 menu_locked = false;
-                _hideMenu(function() {
-                    menu_locked =false;
+                $("#menu-form, #menu-search, #menu-submit").stop().animate({
+                    "opacity": "0.01"
+                }, 500, "linear", function() {
+                    $("#menu-form, #menu-search, #menu-submit").css("display", "none");
+                    _hideMenu(function() {
+                        menu_locked = false;
+                    });
                 });
             });
 
@@ -114,17 +127,18 @@
                 }, 500, "linear");
             });
             $(".menu-link").on("click", function() {
-    //            if ($(this).attr("id").substr(10) !== "blog") {
-    //            if ($(this).attr("id") == "menu-link-" + Routes.route())
-    //                return;
-    //            }
                 if (menu_locked) return;
                     menu_locked = true;
-                window.history.pushState(null, null, Routes.parseUrl().address + "?" + $(this).attr("id").substr(10));
-                Routes.nav($(this).attr("id").substr(10), function() {
+                    window.history.pushState(null, null, Routes.parseUrl().address + "?" + $(this).attr("id").substr(10));
+                    Routes.nav($(this).attr("id").substr(10), function() {
                     _refreshLinks();
                     menu_locked = false;
-                    _hideMenu();
+                    $("#menu-form, #menu-search, #menu-submit").stop().animate({
+                        "opacity": "0.01"
+                    }, 500, "linear", function() {
+                        $("#menu-form, #menu-search, #menu-submit").css("display", "none");
+                        _hideMenu();
+                    });
                 });
             });
         };

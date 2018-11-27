@@ -23,10 +23,11 @@
         background: rgba(20, 20, 34, 0.25);
     }
 
-    #article h1 {
+    h1 {
         position: relative;
         font-family: $project-name-font;
         font-size: 36px;
+        line-height: 36px;
         color: #1E90FF;
         text-shadow: 2px 2px 0px #000;
         margin-bottom: 24px;
@@ -51,6 +52,7 @@
         font-size: 14px;
         color: #DCDCDC;
         padding: 0px 12px;
+        margin-bottom: 12px;
     }
 
     .articles-similar {
@@ -90,3 +92,7 @@
         margin: 12px;
     }
 
+    #article pre {
+        margin: 24px 0px;
+        background: rgba(20, 20, 34, 0.25);
+    }

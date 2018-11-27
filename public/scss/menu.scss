@@ -84,3 +84,53 @@
                 opacity: 0.01;
             }
 
+            #menu-form {
+                position: relative;
+                float: right;
+                clear: both;
+                margin-top: 48px;
+                width: 120px; height: auto;
+                background: rgba(20, 20, 34, 0.50);
+                color: #FFF;
+                box-sizing: border-box;
+                opacity: 0.01;
+                display: none;
+                padding: 0px;
+                margin-left: 0px;
+            }
+
+            #menu-search {
+                position: relative;
+                float: right;
+                clear: both;
+                border: 1px solid #1E90FF;
+                background: rgba(20, 20, 34, 0.25);
+                color: #3EC0FF;
+                border-radius: 6px;
+                width: 120px; height: 24px;
+                text-align: center;
+                box-sizing: border-box;
+                font-family: $menu-link-font;
+                font-weight: bold;
+                opacity: 0.01;
+                display: none;
+                margin-bottom: 6px;
+            }
+
+            #menu-submit {
+                cursor: pointer;
+                position: relative;
+                float: right;
+                width: 120px; height: 24px;
+                border: 1px solid #1E90FF;
+                background: rgba(20, 20, 34, 0.25);
+                color: #FFF;
+                border-radius: 6px;
+                box-sizing: border-box;
+                font-family: $menu-link-font;
+                font-weight: bold;
+                opacity: 0.01;
+                display: none;
+            }
+
+        

@@ -1,75 +1,26 @@
 [
     {
-            "name": "ArticleOne",
-            "href": "ArticleOne.html",
-            "title": "This is article One",
-            "subtitle": "This is the subtitle for article one",
-            "description": "This is just a small description for article one. It will be displayed just belot the sub-title",
-            "published": "01/08/2018",
-            "thumb": "2018/images/ArticleOne.png",
+            "name": "ModulePattern",
+            "href": "ModulePattern.html",
+            "title": "Design Patterns: Module",
+            "subtitle": "Learn about the <b>Module Pattern</b> in <b>JavaScript</b>",
+            "description": "The <b>Module</b> pattern is one of the most common patterns used in <b>JavaScript</b>, find out more about it right here",
+            "published": "31/08/2018",
+            "thumb": "2018/images/ModulePattern.png",
             "languages": [
-                "one", "javascript", "articles"
+                "javascript", "es6"
             ]
     },
     {
-            "name": "ArticleTwo",
-            "href": "ArticleTwo.html",
-            "title": "This is article Two",
-            "subtitle": "This is the subtitle for article two",
-            "description": "This is just a small description for article two. It will be displayed just belot the sub-title",
-            "published": "15/08/2018",
-            "thumb": "2018/images/ArticleTwo.png",
+            "name": "FactoryPattern",
+            "href": "FactoryPattern.html",
+            "title": "Design Patterns: Factory",
+            "subtitle": "All about the factory pattern in <b>JavaScript</b>",
+            "description": "The <b>Factory</b> pattern is another very common pattern used in <b>JavaScript</b> - find out more",
+            "published": "14/09/2018",
+            "thumb": "2018/images/FactoryPattern.png",
             "languages": [
-                "two", "html", "css", "articles"
-            ]
-    },
-    {
-        
-            "name": "ArticleThree",
-            "href": "ArticleThree.html",
-            "title": "This is article Three",
-            "subtitle": "This is the subtitle for article three",
-            "description": "This is just a small description for article three. It will be displayed just belot the sub-title",
-            "published": "06/09/2018",
-            "thumb": "2018/images/ArticleThree.png",
-            "languages": [
-                "three", "articles"
-            ]
-    },
-    {
-            "name": "ArticleFour",
-            "href": "ArticleFour.html",
-            "title": "This is article four",
-            "subtitle": "This is the subtitle for article four",
-            "description": "This is just a small description for article four. It will be displayed just belot the sub-title",
-            "published": "22/09/2018",
-            "thumb": "2018/images/ArticleFour.png",
-            "languages": [
-                "four", "jquery", "something", "articles"
-            ]
-    },
-    {
-            "name": "ArticleFive",
-            "href": "ArticleFive.html",
-            "title": "This is article Five",
-            "subtitle": "This is the subtitle for article five",
-            "description": "This is just a small description for article five. It will be displayed just belot the sub-title",
-            "published": "14/10/2018",
-            "thumb": "2018/images/ArticleFive.png",
-            "languages": [
-                "five", "articles", "html5"
-            ]
-    },
-    {
-            "name": "ArticleSix",
-            "href": "ArticleSix.html",
-            "title": "This is article Six",
-            "subtitle": "This is the subtitle for article six",
-            "description": "This is just a small description for article six. It will be displayed just belot the sub-title",
-            "published": "10/11/2018",
-            "thumb": "2018/images/ArticleSix.png",
-            "languages": [
-                "jquery"
+                "javascript", "es6"
             ]
     }
 ]

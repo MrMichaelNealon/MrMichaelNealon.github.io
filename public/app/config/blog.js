@@ -21,8 +21,6 @@ const   Blog = (function() {
             var url = Routes.parseUrl();
             var path = url.path + ARTICLE_DATA_PREFIX + year.toString() + ".json";
 
-            console.log("Attempting to load " + path);
-
         $.ajax({
             url: path,
             mimeType: 'application/json; charset: UTF-8',
@@ -30,12 +28,10 @@ const   Blog = (function() {
             timeout: 5000,
             success: function(data) {
                 _articles.push(data);
-                console.log("Successfully loaded " + path);
                 _loadArticlesJSON(++year, _callback);
             },
             error: function() {
                 loaded_json = false;
-                console.log("Failed to load " + path + ", breaking");
                 if (typeof(_callback) === "function")
            
                 return _callback(_articles);
@@ -51,12 +47,35 @@ const   Blog = (function() {
             _year = _article = 0;
     };
 
+
+    let _handleBlogSearch = function(search, _callback) {
+        var articles = [];
+        var params = search.split("+");
+
+        for (var year = 0; year < _articles.length; year++) {
+            for (var article = 0; article < _articles[year].length; article++) {
+                for (var param = 0; param < params.length; param++) {
+                    var index = _articles[year][article]['languages'].indexOf(params[param]);
+                    if (index > -1) {
+                        articles.push(_articles[year][article]);
+                    }
+                }
+            }
+        }
+
+        if (typeof(_callback) === "function")
+            _callback(articles);
+
+        return articles;
+    };
+
+
     let _handleBlogRequest = function(url) {
         var tokens = url.search.split("/");
     
         if (typeof(tokens[1]) === "string" && tokens[1] != "") {
             if (tokens[1] == "search")
-                console.log("Doung a search");
+                console.log("...");
             else {
                 var year = tokens[1];
 
@@ -91,7 +110,6 @@ const   Blog = (function() {
             success: function(data) {
                 var url_return = url.address + "?blog/" + year + "/" + article;
 
-           //     console.log("Success on " + url_return);
                 if (typeof(_success) === "function")
                     _success(data, url_return);
             },
@@ -111,11 +129,9 @@ const   Blog = (function() {
             if (typeof(limit) === "number" && limit > 0) {
                 if (total >= limit)
                     break;
-                console.log("TOTAL == " + total);
                 total++;
             }
 
-        //    console.log(`_year = ${_year}, _article = ${_article}`)
             articles.push(_articles[_year][_article]);
 
             if (_direction == ARTICLE_SPILL_DESCENDING) {
@@ -188,7 +204,6 @@ const   Blog = (function() {
     };       
     
     let _getLanguagesHTML = function(name, languages) {
-    //    var name = project.name;
         var html = "";
 
         languages.map(function(language) {
@@ -197,6 +212,7 @@ const   Blog = (function() {
                     id="articles-' + name + '-language-' + language + '" \
                     class="blog-language" \
                     title="Click to search for ' + language + '" \
+                    language="' + language + '" \
                 >\
                     ' + language + '\
                 </div>\
@@ -400,13 +416,11 @@ const   Blog = (function() {
             
             var article = (_articles[year].length - 1);
 
-        //    console.log(`YEAR == ${year} and ARTICLE == ${article}`)
             while (article >= 0) {
                 if (typeof(limit) === "number" && limit > 0) {
                     if (total >= limit)  break;
                     total++;
                 }
-            //    console.log(`total: ${total} limit: ${limit}`)
                 articles.push(_articles[year][article--]);
             }
             year--;
@@ -428,6 +442,7 @@ const   Blog = (function() {
             _articles = [];
         },
         "resetArticles":            _resetArticles,
+        "handleBlogSearch":         _handleBlogSearch,
         "handleBlogRequest":        _handleBlogRequest,
         "loadArticle":              _loadArticle,
         "loadArticles":             _loadArticles,

@@ -7,8 +7,12 @@
 
         z-index: 30;
         
-        color: $secondary-fg;
+        color: $primary-fg;
         background: $primary-bg;
+
+        text-align: center;
+        font-family: $menu-link-font;
+        font-size: 16px;
         
         left: $footer-left;
         width: $footer-width;

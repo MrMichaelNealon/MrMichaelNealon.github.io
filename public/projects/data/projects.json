@@ -1,5 +1,15 @@
 [
     {
+        "name": "GrovePeak",
+        "description": "<b>Grovepeak</b> web design project",
+        "href": "http://www.grovepeak.com",
+        "repo": "https://github.com/MrMichaelNealon/NunchyCrut",
+        "thumb": "/public/projects/images/GrovePeak.png",
+        "languages": [
+            "html5", "css3", "javascript", "jquery"
+        ]
+    },
+    {
         "name": "NunchyCrut",
         "description": "A bizarre blog",
         "href": "https://rawgit.com/MrMichaelNealon/NunchyCrut/master/index.html?Home",
